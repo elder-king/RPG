@@ -2969,11 +2969,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1690466975450053775, guid: ee4e493f34c73f642966b2d513f44c0d, type: 3}
       propertyPath: Damage
-      value: 300
+      value: 30
       objectReference: {fileID: 0}
     - target: {fileID: 1690466975450053775, guid: ee4e493f34c73f642966b2d513f44c0d, type: 3}
       propertyPath: unitName
-      value: main player
+      value: Roy
       objectReference: {fileID: 0}
     - target: {fileID: 1690466975450053775, guid: ee4e493f34c73f642966b2d513f44c0d, type: 3}
       propertyPath: AttacksList.Array.size
@@ -3336,10 +3336,10 @@ PrefabInstance:
     - target: {fileID: 1690466975450053773, guid: ee4e493f34c73f642966b2d513f44c0d, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: 0ccc508108fa6ed4fa11b4a467d7f609, type: 3}
+      objectReference: {fileID: -2413806693520163455, guid: 4adeaf2d2b1c7417e89f026626d8264f, type: 3}
     - target: {fileID: 1690466975450053775, guid: ee4e493f34c73f642966b2d513f44c0d, type: 3}
       propertyPath: Damage
-      value: 100
+      value: 30
       objectReference: {fileID: 0}
     - target: {fileID: 1690466975450053775, guid: ee4e493f34c73f642966b2d513f44c0d, type: 3}
       propertyPath: unitName
@@ -3773,11 +3773,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1690466975450053775, guid: ee4e493f34c73f642966b2d513f44c0d, type: 3}
       propertyPath: Damage
-      value: 300
+      value: 30
       objectReference: {fileID: 0}
     - target: {fileID: 1690466975450053775, guid: ee4e493f34c73f642966b2d513f44c0d, type: 3}
       propertyPath: unitName
-      value: main player
+      value: cry babe
       objectReference: {fileID: 0}
     - target: {fileID: 1690466975450053775, guid: ee4e493f34c73f642966b2d513f44c0d, type: 3}
       propertyPath: AttacksList.Array.size
