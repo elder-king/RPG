@@ -3066,12 +3066,16 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1690466975450053775, guid: ee4e493f34c73f642966b2d513f44c0d, type: 3}
       propertyPath: AttacksList.Array.size
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 1690466975450053775, guid: ee4e493f34c73f642966b2d513f44c0d, type: 3}
       propertyPath: AttacksList.Array.data[0]
       value: 
       objectReference: {fileID: -6047248373433793944, guid: f8b4ba647dbae2049abe8b31eba0fd57, type: 3}
+    - target: {fileID: 1690466975450053775, guid: ee4e493f34c73f642966b2d513f44c0d, type: 3}
+      propertyPath: AttacksList.Array.data[1]
+      value: 
+      objectReference: {fileID: 8260246806801752365, guid: 676360b914e82fa4981dad9efa49dfd8, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ee4e493f34c73f642966b2d513f44c0d, type: 3}
 --- !u!4 &1429086083 stripped
@@ -3436,7 +3440,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1690466975450053775, guid: ee4e493f34c73f642966b2d513f44c0d, type: 3}
       propertyPath: AttacksList.Array.size
-      value: 3
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 1690466975450053775, guid: ee4e493f34c73f642966b2d513f44c0d, type: 3}
       propertyPath: AttacksList.Array.data[0]
@@ -3445,7 +3449,7 @@ PrefabInstance:
     - target: {fileID: 1690466975450053775, guid: ee4e493f34c73f642966b2d513f44c0d, type: 3}
       propertyPath: AttacksList.Array.data[1]
       value: 
-      objectReference: {fileID: -6047248373433793944, guid: f8b4ba647dbae2049abe8b31eba0fd57, type: 3}
+      objectReference: {fileID: 8260246806801752365, guid: 676360b914e82fa4981dad9efa49dfd8, type: 3}
     - target: {fileID: 1690466975450053775, guid: ee4e493f34c73f642966b2d513f44c0d, type: 3}
       propertyPath: AttacksList.Array.data[2]
       value: 
@@ -3870,12 +3874,16 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1690466975450053775, guid: ee4e493f34c73f642966b2d513f44c0d, type: 3}
       propertyPath: AttacksList.Array.size
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 1690466975450053775, guid: ee4e493f34c73f642966b2d513f44c0d, type: 3}
       propertyPath: AttacksList.Array.data[0]
       value: 
       objectReference: {fileID: -6047248373433793944, guid: f8b4ba647dbae2049abe8b31eba0fd57, type: 3}
+    - target: {fileID: 1690466975450053775, guid: ee4e493f34c73f642966b2d513f44c0d, type: 3}
+      propertyPath: AttacksList.Array.data[1]
+      value: 
+      objectReference: {fileID: 8260246806801752365, guid: 676360b914e82fa4981dad9efa49dfd8, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ee4e493f34c73f642966b2d513f44c0d, type: 3}
 --- !u!4 &2135141823 stripped
