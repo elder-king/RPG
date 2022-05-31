@@ -5,14 +5,15 @@ using UnityEngine.UI;
 [System.Obsolete]
 public class BattelSystem : MonoBehaviour
 {
+    //state's of the battle
     public enum BattleState { START, PLAYERTURN, ENEMYTURN, WON, LOST }
-
     public enum TeamsTurn { playerTurn, EnemyTurn }
     public TeamsTurn currentTurn = TeamsTurn.playerTurn;
-
     public enum PlayerGUI { Activat, Waiting, Input1, Input2, Done }
     public PlayerGUI PlayerInput;
+    public BattleState state;
 
+    //The List Of Players And Enemy's
     public List<GameObject> PlayerTeamInBattel = new List<GameObject>();
     public int PlyerTurnID = 0;
 
@@ -23,18 +24,14 @@ public class BattelSystem : MonoBehaviour
 
     public Transform playerBattleStation, enemyBattleStation;
     public GameObject PTM, ETM;
+    bool teamPlayerTurn = false;
 
-    public bool teamPlayerTurn = false;
-
+    // UI stuff!
     public Text dialogueText;
     public Transform EnemySpaicer, PlayerSpaicer, AttackListSpacer;
-
-    public GameObject ActionPanel, EnemyButton, PlayerButton, AttackButton, EnemyHealthBar, EndOfBattel;
-
-    public BattleState state;
+    public GameObject ActionPanel, EnemyButton, PlayerButton, AttackButton, EnemyHealthBar, EndOfBattel, ChoseActionPanel;
 
     //current action data
-
     private GameObject CharacterInTurn;
     public GameObject targetCharacter;
     private BaisecAttack AttackType;
@@ -44,7 +41,6 @@ public class BattelSystem : MonoBehaviour
     {
         PlayerTeamInBattel.AddRange(GameObject.FindGameObjectsWithTag("Player"));
         EnemyTeamInBattel.AddRange(GameObject.FindGameObjectsWithTag("Enemy"));
-
         //GameEvent.current.switchTurn += NextTurn;
         EnemySelectBotten();
         PlayerSelectButton();
@@ -136,7 +132,7 @@ public class BattelSystem : MonoBehaviour
     public void Input1(GameObject Character)
     {
         CharacterInTurn = Character;
-        EnemySpaicer.parent.gameObject.SetActive(true);
+        ChoseActionPanel.gameObject.SetActive(true);
     }
     public void Input2(GameObject Target)
     {
@@ -197,17 +193,6 @@ public class BattelSystem : MonoBehaviour
                 EndOfBattel.SetActive(true);
                 if (LOSEtext != null) LOSEtext.text = "YOU LOST";
                 break;
-        }
-    }
-    void EndBattle()
-    {
-        if (state == BattleState.WON)
-        {
-            dialogueText.text = "You won the battle!";
-        }
-        else if (state == BattleState.LOST)
-        {
-            dialogueText.text = "You were defeated.";
         }
     }
 }
