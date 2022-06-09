@@ -8,6 +8,6 @@ public class AttackButton : MonoBehaviour
 
     public void OnClick()
     {
-        GameObject.Find("Battel System").GetComponent<BattelSystem>().Input4(Attack);
+        GameObject.Find("Battel System").GetComponent<BattelSystem>().Input5(Attack);
     }
 }

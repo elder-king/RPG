@@ -7,7 +7,7 @@ public class characterStats : MonoBehaviour
 {
     public string unitName;
 
-    public float Hp, MaxHp = 100, HealAmount = 20, Level = 0, currentXp = 0, Damage = 30;
+    public float Hp, MaxHp = 100, HealAmount = 20, Level = 0, currentXp = 0, Damage = 30, Defince = 30;
 
     public Slider HPSlider;
 

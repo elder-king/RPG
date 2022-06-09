@@ -15,15 +15,15 @@ public class Movement : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
-       Vector2 move = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
+       Vector2 move = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
 
         rb.velocity = move * speed * Time.deltaTime;
     }
     private void OnCollisionEnter2D(Collision2D other)
     {
-        if (other != null)
+        if (other.gameObject.CompareTag("Enemy"))
             SceneManager.LoadScene(0);
     }
 }

@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-[System.Obsolete]
+
 public class BattelSystem : MonoBehaviour
 {
     //state's of the battle
@@ -10,10 +10,10 @@ public class BattelSystem : MonoBehaviour
     public enum TeamsTurn { playerTurn, EnemyTurn }
     public TeamsTurn currentTurn = TeamsTurn.playerTurn;
     public enum PlayerGUI { Activat, Waiting, Input1, Input2, Done }
-    public PlayerGUI PlayerInput;
+    PlayerGUI PlayerInput;
     public BattleState state;
 
-    //The List Of Players And Enemy's
+    //The List Of Players And Enemy's And Items
     public List<GameObject> PlayerTeamInBattel = new List<GameObject>();
     public int PlyerTurnID = 0;
 
@@ -28,22 +28,40 @@ public class BattelSystem : MonoBehaviour
 
     // UI stuff!
     public Text dialogueText;
-    public Transform EnemySpaicer, PlayerSpaicer, AttackListSpacer;
-    public GameObject ActionPanel, EnemyButton, PlayerButton, AttackButton, EnemyHealthBar, EndOfBattel, ChoseActionPanel;
+    public Transform EnemySpaicer, PlayerSpaicer, AttackListSpacer, ItemSpacer;
+    public GameObject ActionPanel, EnemyButton, PlayerButton, ItemButton, AttackButton, EnemyHealthBar, EndOfBattel, ChoseActionPanel, ItemPanel;
+    public static BattelSystem Instance;
 
     //current action data
-    private GameObject CharacterInTurn;
+    [HideInInspector]
+    public Inventory inventory;
+
+    [HideInInspector]
+    public GameObject CharacterInTurn;
+
+    [HideInInspector]
     public GameObject targetCharacter;
-    private BaisecAttack AttackType;
-    private BaisecAttack ChoseenAttack;
+
+    [HideInInspector]
+    public Item ChosinItem;
+
+    [HideInInspector]
+    public BaisecAttack AttackType;
+
+    [HideInInspector]
+    public BaisecAttack ChoseenAttack;
 
     private void Awake()
     {
+        Instance = this;
+        Inventory.Instance.call();
         PlayerTeamInBattel.AddRange(GameObject.FindGameObjectsWithTag("Player"));
         EnemyTeamInBattel.AddRange(GameObject.FindGameObjectsWithTag("Enemy"));
+
         //GameEvent.current.switchTurn += NextTurn;
         EnemySelectBotten();
         PlayerSelectButton();
+        ItemSelectButton();
         SwitchTurns();
     }
     public void SwitchTurns()
@@ -97,7 +115,7 @@ public class BattelSystem : MonoBehaviour
             NewHealthBar.transform.SetParent(Enemy.transform, false);
 
             NewHealthBar.transform.position = new Vector2(NewHealthBar.transform.position.x, NewHealthBar.transform.position.y + 1);
-            Slider Bar = NewHealthBar.transform.FindChild("Slider").GetComponent<Slider>();
+            Slider Bar = NewHealthBar.transform.Find("Slider").GetComponent<Slider>();
 
             Enemy.GetComponent<EnemyAI>().HealthBar = Bar;
 
@@ -129,6 +147,22 @@ public class BattelSystem : MonoBehaviour
             newButton.transform.SetParent(PlayerSpaicer, false);
         }
     }
+    public void ItemSelectButton()
+    {
+        foreach (Transform child in ItemSpacer)
+        {
+            Destroy(child.gameObject);
+        }
+
+        foreach (Item Chosinitem in inventory.itemList)
+        {
+            GameObject Button = Instantiate(ItemButton) as GameObject;
+            Button.GetComponent<ItemButtonScript>().item = Chosinitem;
+            Text text = Button.transform.Find("Text").GetComponent<Text>();
+            text.text = Chosinitem.ItemName;
+            Button.transform.SetParent(ItemSpacer, false);
+        }
+    }
     public void Input1(GameObject Character)
     {
         CharacterInTurn = Character;
@@ -150,7 +184,7 @@ public class BattelSystem : MonoBehaviour
         {
             GameObject newButton = Instantiate(AttackButton) as GameObject;
 
-            Text attacktext = newButton.transform.FindChild("Text").gameObject.GetComponent<Text>();
+            Text attacktext = newButton.transform.Find("Text").gameObject.GetComponent<Text>();
             attacktext.text = attack.AttackName + " ATK" + attack.AttackDamage;
             AttackButton butten = newButton.GetComponent<AttackButton>();
             butten.Attack = attack;
@@ -158,7 +192,14 @@ public class BattelSystem : MonoBehaviour
             ATB.Add(newButton);
         }
     }
-    public void Input4(BaisecAttack MoveType)
+
+    public void Input4(Item item)
+    {
+        ChosinItem = item;
+        CharacterInTurn.GetComponent<inBattleScript>().state = inBattleScript.characterState.UsingItam;
+        ItemPanel.SetActive(false);
+    }
+    public void Input5(BaisecAttack MoveType)
     {
         ChoseenAttack = MoveType;
         CharacterInTurn.GetComponent<inBattleScript>().onAttackBotten(ChoseenAttack);
@@ -184,12 +225,12 @@ public class BattelSystem : MonoBehaviour
         switch (state)
         {
             case (BattleState.WON):
-                Text text = EndOfBattel.transform.FindChild("text").GetComponent<Text>();
+                Text text = EndOfBattel.transform.Find("text").GetComponent<Text>();
                 EndOfBattel.SetActive(true);
                 if (text != null) text.text = "YOU WON!";
                 break;
             case (BattleState.LOST):
-                Text LOSEtext = EndOfBattel.transform.FindChild("text").GetComponent<Text>();
+                Text LOSEtext = EndOfBattel.transform.Find("text").GetComponent<Text>();
                 EndOfBattel.SetActive(true);
                 if (LOSEtext != null) LOSEtext.text = "YOU LOST";
                 break;

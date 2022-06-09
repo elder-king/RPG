@@ -4,16 +4,26 @@ using UnityEngine.UI;
 
 public class inBattleScript : MonoBehaviour
 {
-    public enum characterState { Idle, ready, NotReady, ChoseAnAct, fainted, attaking, Attacked, Retering }
+    public enum characterState { Idle, ready, NotReady, ChoseAnAct, fainted, attaking, Attacked, Retering, UsingItam}
     public characterState state;
+
+    public static inBattleScript Instance;
 
     Vector3 startPosetion;
     public BattelSystem BS;
+    public IUseItem UseItem;
     public GameObject Button, turnIndecatre;
 
     BaisecAttack chosingAttack;
     characterStats player;
     public Slider HealthBar;
+
+    private void Awake()
+    {
+        Instance = this;
+        gameObject.AddComponent<IUseItem>();
+        UseItem = GetComponent<IUseItem>();
+    }
     void Start()
     {
         BS = GameObject.Find("Battel System").GetComponent<BattelSystem>();
@@ -25,7 +35,8 @@ public class inBattleScript : MonoBehaviour
 
     public void Update()
     {
-        HealthBar.value = player.Hp;
+        // state machine 
+       HealthBar.value = player.Hp;
         switch (state)
         {
             case (characterState.ready):
@@ -65,6 +76,11 @@ public class inBattleScript : MonoBehaviour
                     state = characterState.Idle;
                 }
                 break;
+            case (characterState.UsingItam):
+                UseItem.Use();
+                state = characterState.Idle;
+                BS.ActCount();
+                break;
         }
     }
     public void ActionSTate()
@@ -78,9 +94,10 @@ public class inBattleScript : MonoBehaviour
         state = characterState.attaking;
         chosingAttack = atk;
     }
-    public void OnHealButton()
+    public void OnHealButton(float amount)
     {
-        //StartCoroutine(PlayerHeal());
+        player.Hp += amount;
+        Debug.Log(player.unitName + " Hp Incresed by "+ amount);
     }
     public void DoDamage()
     {
@@ -89,7 +106,9 @@ public class inBattleScript : MonoBehaviour
     }
     public void GetDamage(float Damage)
     {
-        player.Hp -= Damage;
+        float DamageOutbot = Damage - player.Defince / 3;
+        player.Hp -= DamageOutbot;
+        Debug.Log(DamageOutbot);
         if (player.Hp <= 0)
         {
             BS.PlayerTeamInBattel.Remove(gameObject);
