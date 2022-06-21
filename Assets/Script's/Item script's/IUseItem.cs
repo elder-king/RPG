@@ -1,28 +1,75 @@
 using UnityEngine;
+using UnityEngine.UI;
 public class IUseItem : MonoBehaviour
 {
+    inBattleScript PLayerInBattle;
+    Movement Player;
+    characterStats stats;
+    Item item;
+    Inventory inventory;
+    bool ItemUsed = true;
     public void Use()
     {
-        inBattleScript PLayer = GetComponent<inBattleScript>();
-        characterStats stats = GetComponent<characterStats>();
-        Item bsItem = GetComponent<inBattleScript>().BS.ChosinItem;
-        Inventory inventory = GetComponent<inBattleScript>().BS.inventory;
 
-        switch (bsItem.itemType)
+        if (GameObject.Find("Battel System") != null)
         {
-            case Item.ItemType.HealthPotion:
-                PLayer.OnHealButton(20);
+            item = BattelSystem.Instance.ChosinItem;
+            PLayerInBattle = GetComponent<inBattleScript>();
+        }
+        else
+        {
+            Player = GetComponent<Movement>();
+        }
+
+        stats = GetComponent<characterStats>();
+        inventory = Inventory.Instance;
+        string ItemName = item.name;
+
+        switch (ItemName)
+        {
+            case "Health Potion":
+                if (stats.Hp < stats.MaxHp)
+                {
+                    Notefaction.Instance.Notefy("doset work?", () => { PLayerInBattle.OnHealButton(20); Notefaction.Instance.Hide();}, () => { Notefaction.Instance.Hide();});
+                }
+                else
+                {
+                    ItemUsed = false;
+                }
                 break;
 
-            case Item.ItemType.ATKBoster:
+            case "ATK Boster":
                 stats.Damage += 10;
                 break;
 
-            case Item.ItemType.DEFBoster:
+            case "DEF Boster":
                 stats.Defince += 10;
                 Debug.Log(stats.unitName + " Defunce Incresed " + 10);
                 break;
+            case "Flash Light":
+                Player.FlashLight();
+                break;
         }
-        inventory.RemoveItame(bsItem);
+
+        SwitchTurn();
+    }
+    void SwitchTurn()
+    {
+        if (PLayerInBattle != null && ItemUsed)
+        {
+            BattelSystem.Instance.ActCount();
+            if (item.Limited)
+            {
+                inventory.RemoveItame(item);
+        
+                PLayerInBattle.GetComponent<inBattleScript>().EndTurn();
+            }
+        }
+        ItemUsed = true;
+    }
+    public void GetItem(Item Reitem)
+    {
+        item = Reitem;
+        Use();
     }
 }

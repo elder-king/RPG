@@ -12,8 +12,8 @@ TagManager:
   - Base
   - Water
   - UI
-  - 
-  - 
+  - effect's
+  - light
   - 
   - 
   - 
@@ -44,4 +44,7 @@ TagManager:
     locked: 0
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: UI
+    uniqueID: 1975053411
     locked: 0

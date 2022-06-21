@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
-
+[System.Serializable]
 public class Inventory : MonoBehaviour
 {
     public static Inventory Instance;
@@ -9,10 +9,6 @@ public class Inventory : MonoBehaviour
     {
         Instance = this;
         DontDestroyOnLoad(this);
-    }
-    public void call()
-    {
-        GameObject.Find("Battel System").GetComponent<BattelSystem>().inventory = GetComponent<Inventory>();
     }
     public void AddItem(Item item)
     {

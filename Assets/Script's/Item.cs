@@ -4,9 +4,14 @@ using UnityEngine;
 public class Item : ScriptableObject
 {
     public string ItemName;
-    public enum ItemType { HealthPotion, ATKBoster, DEFBoster}
+    public string Description;
+    public enum ItemType { HealthPotion, ATKBoster, DEFBoster, KeyItem, Tool}
     public ItemType itemType;
-    public int amount;
+    public int Amount;
     public Sprite ItemSprite;
+    public bool Limited = true;
+    public bool equippable = false;
+    public bool UsebleOutSideBattle;
+    public bool UsebleInSideBattle;
 }
 

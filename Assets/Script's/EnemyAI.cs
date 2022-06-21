@@ -4,7 +4,7 @@ using UnityEngine.UI;
 [System.Obsolete]
 public class EnemyAI : MonoBehaviour
 {
-    public enum characterState { Idle, ready, NotReady, ChoseAnAct, fainted, attaking, Attacked, Selected, Retering }
+    public enum characterState { Idle, ready, NotReady, ChoseAnAct, fainted, attaking, Attacked, Selected, Retering, RangAttack }
 
     characterStats Enemy;
     public BattelSystem BS;
@@ -14,6 +14,8 @@ public class EnemyAI : MonoBehaviour
     public Slider HealthBar;
     Vector3 startPosetion;
     GameObject target;
+    [Range(0, 100)]
+    public float Luck;
 
     // Start is called before the first frame update
     void Start()
@@ -27,19 +29,23 @@ public class EnemyAI : MonoBehaviour
     }
     public void Update()
     {
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            Chance();
+        }
         switch (state)
         {
             case (characterState.attaking):
                 if (target != null)
                 {
-
                     if (Vector3.Distance(getPos(), target.transform.position) > 1f)
                     {
                         transform.position -= (transform.position - target.transform.position) * 4 * Time.deltaTime;
                     }
                     else
                     {
-                        DoDamage(target);
+                        if (Chance())
+                            DoDamage(target);
                         state = characterState.Retering;
                     }
                 }
@@ -60,6 +66,10 @@ public class EnemyAI : MonoBehaviour
                     state = characterState.Idle;
                     turnIndecatre.gameObject.SetActive(false);
                 }
+                break;
+
+            case (characterState.RangAttack):
+
                 break;
         }
     }
@@ -124,5 +134,29 @@ public class EnemyAI : MonoBehaviour
     private void OnDestroy()
     {
         BS.EnemyTeamInBattel.Remove(gameObject);
+    }
+
+    IEnumerator Attacking(float Time)
+    {
+
+        yield return new WaitForSeconds(Time);
+        DoDamage(target);
+    }
+    public bool Chance()
+    {
+        float Value = Luck;
+        float numper = Random.Range(0, 100);
+        bool chance = true;
+        if (numper < Value)
+        {
+            chance = true;
+        }
+        else
+        {
+            chance = false;
+        }
+        Debug.Log(chance);
+        return chance;
+
     }
 }

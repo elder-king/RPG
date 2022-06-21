@@ -13,5 +13,11 @@ MonoBehaviour:
   m_Name: Health Potion
   m_EditorClassIdentifier: 
   ItemName: Health Potion
-  amount: 1
+  Description: Incresses the player health
+  itemType: 0
+  Amount: 0
   ItemSprite: {fileID: 21300000, guid: ed150e2795d15c946b0d346a22d874f7, type: 3}
+  Limited: 1
+  equippable: 0
+  UsebleOutSideBattle: 1
+  UsebleInSideBattle: 1

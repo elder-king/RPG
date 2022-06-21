@@ -13,6 +13,11 @@ MonoBehaviour:
   m_Name: DEF Boster
   m_EditorClassIdentifier: 
   ItemName: DEf Boster
+  Description: Boost DEF of the player
   itemType: 2
-  amount: 0
+  Amount: 0
   ItemSprite: {fileID: 0}
+  Limited: 1
+  equippable: 0
+  UsebleOutSideBattle: 0
+  UsebleInSideBattle: 1

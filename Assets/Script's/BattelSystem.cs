@@ -30,7 +30,7 @@ public class BattelSystem : MonoBehaviour
     public Text dialogueText;
     public Transform EnemySpaicer, PlayerSpaicer, AttackListSpacer, ItemSpacer;
     public GameObject ActionPanel, EnemyButton, PlayerButton, ItemButton, AttackButton, EnemyHealthBar, EndOfBattel, ChoseActionPanel, ItemPanel;
-    public static BattelSystem Instance;
+    public static BattelSystem Instance { get; private set; }
 
     //current action data
     [HideInInspector]
@@ -53,8 +53,15 @@ public class BattelSystem : MonoBehaviour
 
     private void Awake()
     {
-        Instance = this;
-        Inventory.Instance.call();
+        if (Instance != null && Instance != this)
+        {
+            Destroy(this);
+        }
+        else
+        {
+            Instance = this;
+        }
+        inventory = Inventory.Instance;
         PlayerTeamInBattel.AddRange(GameObject.FindGameObjectsWithTag("Player"));
         EnemyTeamInBattel.AddRange(GameObject.FindGameObjectsWithTag("Enemy"));
 
@@ -64,8 +71,10 @@ public class BattelSystem : MonoBehaviour
         ItemSelectButton();
         SwitchTurns();
     }
+
     public void SwitchTurns()
     {
+        
         teamPlayerTurn = !teamPlayerTurn;
         if (teamPlayerTurn == true)
         {
@@ -156,6 +165,10 @@ public class BattelSystem : MonoBehaviour
 
         foreach (Item Chosinitem in inventory.itemList)
         {
+            if(Chosinitem.UsebleInSideBattle == false)
+            {
+                continue;
+            }
             GameObject Button = Instantiate(ItemButton) as GameObject;
             Button.GetComponent<ItemButtonScript>().item = Chosinitem;
             Text text = Button.transform.Find("Text").GetComponent<Text>();
@@ -207,6 +220,7 @@ public class BattelSystem : MonoBehaviour
     }
     void execute()
     {
+        CharacterInTurn.GetComponent<inBattleScript>().EndTurn();
         foreach (GameObject Button in ATB) { Destroy(Button); }
         ATB.Clear();
         EnemySpaicer.transform.parent.gameObject.SetActive(false);

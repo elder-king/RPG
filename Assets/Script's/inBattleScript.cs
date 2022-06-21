@@ -4,10 +4,8 @@ using UnityEngine.UI;
 
 public class inBattleScript : MonoBehaviour
 {
-    public enum characterState { Idle, ready, NotReady, ChoseAnAct, fainted, attaking, Attacked, Retering, UsingItam}
+    public enum characterState { Idle, ready, NotReady, ChoseAnAct, fainted, attaking, Attacked, Retering, UsingItam }
     public characterState state;
-
-    public static inBattleScript Instance;
 
     Vector3 startPosetion;
     public BattelSystem BS;
@@ -20,13 +18,12 @@ public class inBattleScript : MonoBehaviour
 
     private void Awake()
     {
-        Instance = this;
         gameObject.AddComponent<IUseItem>();
         UseItem = GetComponent<IUseItem>();
     }
     void Start()
     {
-        BS = GameObject.Find("Battel System").GetComponent<BattelSystem>();
+        BS = BattelSystem.Instance;
         startPosetion = transform.position;
         turnIndecatre.GetComponent<SpriteRenderer>().enabled = false;
         player = GetComponent<characterStats>();
@@ -36,7 +33,7 @@ public class inBattleScript : MonoBehaviour
     public void Update()
     {
         // state machine 
-       HealthBar.value = player.Hp;
+        HealthBar.value = player.Hp;
         switch (state)
         {
             case (characterState.ready):
@@ -45,11 +42,9 @@ public class inBattleScript : MonoBehaviour
 
             case (characterState.Idle):
                 transform.position = startPosetion;
-                Button.GetComponent<Button>().interactable = false;
                 break;
 
             case (characterState.attaking):
-                Button.GetComponent<Button>().interactable = false;
                 if (BS.targetCharacter != null)
                 {
                     GameObject Enemy = BS.targetCharacter;
@@ -72,21 +67,19 @@ public class inBattleScript : MonoBehaviour
                 }
                 else
                 {
-                    BS.ActCount();
                     state = characterState.Idle;
+                    BattelSystem.Instance.ActCount();
                 }
                 break;
             case (characterState.UsingItam):
                 UseItem.Use();
                 state = characterState.Idle;
-                BS.ActCount();
                 break;
         }
     }
     public void ActionSTate()
     {
         state = characterState.ready;
-        Debug.Log(gameObject.name + "  Turn!!");
         turnIndecatre.GetComponent<SpriteRenderer>().enabled = true;
     }
     public void onAttackBotten(BaisecAttack atk)
@@ -97,7 +90,7 @@ public class inBattleScript : MonoBehaviour
     public void OnHealButton(float amount)
     {
         player.Hp += amount;
-        Debug.Log(player.unitName + " Hp Incresed by "+ amount);
+        Debug.Log(player.unitName + " Hp Incresed by " + amount);
     }
     public void DoDamage()
     {
@@ -120,4 +113,5 @@ public class inBattleScript : MonoBehaviour
     {
         return transform.position;
     }
+    public void EndTurn() => Button.GetComponent<Button>().interactable = false;
 }

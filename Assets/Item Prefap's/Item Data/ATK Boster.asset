@@ -13,6 +13,11 @@ MonoBehaviour:
   m_Name: ATK Boster
   m_EditorClassIdentifier: 
   ItemName: ATK Boster
+  Description: Boost ATK of the player
   itemType: 1
-  amount: 1
+  Amount: 0
   ItemSprite: {fileID: 0}
+  Limited: 1
+  equippable: 0
+  UsebleOutSideBattle: 0
+  UsebleInSideBattle: 1
