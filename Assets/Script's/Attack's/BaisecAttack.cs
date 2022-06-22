@@ -6,9 +6,9 @@ using UnityEngine;
 public class BaisecAttack : MonoBehaviour
 {
     public string AttackName;
-
     public float AttackDamage;
     public float AttaxkCoust;
-
+    public float Chance;
+    public bool Special; 
 
 }

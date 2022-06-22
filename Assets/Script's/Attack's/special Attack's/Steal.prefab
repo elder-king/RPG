@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &6780015763264155398
+--- !u!1 &1126264719929378516
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,22 +8,22 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 8714015048461896038}
-  - component: {fileID: 8260246806801752365}
+  - component: {fileID: 4915192738133358418}
+  - component: {fileID: -988791251401071626}
   m_Layer: 0
-  m_Name: HeavyMeleAttack
+  m_Name: Steal
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &8714015048461896038
+--- !u!4 &4915192738133358418
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6780015763264155398}
+  m_GameObject: {fileID: 1126264719929378516}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
@@ -32,20 +32,20 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &8260246806801752365
+--- !u!114 &-988791251401071626
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6780015763264155398}
+  m_GameObject: {fileID: 1126264719929378516}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: da66eef9554cfb348b364ba963c334d4, type: 3}
+  m_Script: {fileID: 11500000, guid: 5878008f2776cd3478cf5933dae37922, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  AttackName: Heavy Mele Attack
+  AttackName: Steal
   AttackDamage: 30
-  AttaxkCoust: 0
-  Special: 0
-  Chance: 0
+  AttaxkCoust: 30
+  Chance: 60
+  Special: 1

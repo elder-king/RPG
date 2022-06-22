@@ -1,8 +1,6 @@
 using UnityEngine;
 using UnityEngine.UI;
-
-
-public class inBattleScript : MonoBehaviour
+public class inBattleScript : IDoSpecial
 {
     public enum characterState { Idle, ready, NotReady, ChoseAnAct, fainted, attaking, Attacked, Retering, UsingItam }
     public characterState state;
@@ -11,7 +9,8 @@ public class inBattleScript : MonoBehaviour
     public BattelSystem BS;
     public IUseItem UseItem;
     public GameObject Button, turnIndecatre;
-
+    [Range(0, 100)]
+    public float Luck;
     BaisecAttack chosingAttack;
     characterStats player;
     public Slider HealthBar;
@@ -32,6 +31,8 @@ public class inBattleScript : MonoBehaviour
 
     public void Update()
     {
+
+        base.DoSpecial();
         // state machine 
         HealthBar.value = player.Hp;
         switch (state)
@@ -54,10 +55,13 @@ public class inBattleScript : MonoBehaviour
                     }
                     else
                     {
-                        DoDamage();
+                        if (Chance())
+                        {
+                            DoDamage();
+                        }
+
                         state = characterState.Retering;
                     }
-
                 }
                 break;
             case (characterState.Retering):
@@ -114,4 +118,20 @@ public class inBattleScript : MonoBehaviour
         return transform.position;
     }
     public void EndTurn() => Button.GetComponent<Button>().interactable = false;
+    public bool Chance()
+    {
+        float Value = Luck;
+        float numper = Random.Range(0, 100);
+        bool chance = true;
+        if (numper < Value)
+        {
+            chance = true;
+        }
+        else
+        {
+            chance = false;
+        }
+        Debug.Log(chance);
+        return chance;
+    }
 }

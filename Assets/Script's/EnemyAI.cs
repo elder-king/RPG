@@ -29,10 +29,6 @@ public class EnemyAI : MonoBehaviour
     }
     public void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            Chance();
-        }
         switch (state)
         {
             case (characterState.attaking):
@@ -138,7 +134,6 @@ public class EnemyAI : MonoBehaviour
 
     IEnumerator Attacking(float Time)
     {
-
         yield return new WaitForSeconds(Time);
         DoDamage(target);
     }
@@ -157,6 +152,5 @@ public class EnemyAI : MonoBehaviour
         }
         Debug.Log(chance);
         return chance;
-
     }
 }
